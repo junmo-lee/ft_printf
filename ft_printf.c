@@ -6,7 +6,7 @@
 /*   By: junmlee <junmlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 21:48:36 by junmlee           #+#    #+#             */
-/*   Updated: 2023/11/13 21:52:15 by junmlee          ###   ########.fr       */
+/*   Updated: 2023/11/13 22:01:24 by junmlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 int	ft_printf(const char *format, ...)
 {
-	write(1, format, 10);
+	ft_putstr_fd((char *)format, 1);
+	return (1);
 }

@@ -12,10 +12,10 @@ ARFLAGS	= -rcs
 LIBFT = ./libft/libft.a
 LIBFT_DIR = libft/
 
-INC		= 
+INC		= ft_printf.h
 
-SRCS = 
-SRCS_B = 
+SRCS	= ft_printf.c 
+SRCS_B	= 
 
 OBJS	= $(SRCS:.c=.o)
 OBJS_B	= $(SRCS_B:.c=.o)
