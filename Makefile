@@ -14,7 +14,7 @@ LIBFT_DIR = libft/
 
 INC		= ft_printf.h
 
-SRCS	= ft_printf.c 
+SRCS	= ft_printf.c print_chars.c print_dec.c print_hex.c print_pointer.c
 SRCS_B	= 
 
 OBJS	= $(SRCS:.c=.o)
