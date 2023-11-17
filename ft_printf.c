@@ -6,7 +6,7 @@
 /*   By: junmlee <junmlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 21:48:36 by junmlee           #+#    #+#             */
-/*   Updated: 2023/11/17 21:04:40 by junmlee          ###   ########.fr       */
+/*   Updated: 2023/11/17 21:12:25 by junmlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int	formatting(char type, va_list *ap)
 		return (print_hex_upper(ap));
 	else if (type == '%')
 	{
-		write(1, "%", 1);
-		return (1);
+		if (write(1, "%", 1) == -1)
+			return (-1);
+		else
+			return (1);
 	}
 	else
 		return (-1);
@@ -58,15 +60,12 @@ int	ft_printf(const char *format, ...)
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
-		{
-			ret_formatting = formatting(format[i + 1], &ap);
-			if (ret_formatting == -1)
-				return (va_end_ret(&ap, -1));
-			len += ret_formatting;
-			i++;
-		}
+			ret_formatting = formatting(format[i++ + 1], &ap);
 		else
-			len += write(1, format + i, 1);
+			ret_formatting = write(1, format + i, 1);
+		if (ret_formatting == -1)
+			return (va_end_ret(&ap, -1));
+		len += ret_formatting;
 		i++;
 	}
 	return (va_end_ret(&ap, len));

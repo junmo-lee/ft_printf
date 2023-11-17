@@ -6,7 +6,7 @@
 /*   By: junmlee <junmlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:39:30 by junmlee           #+#    #+#             */
-/*   Updated: 2023/11/17 20:33:45 by junmlee          ###   ########.fr       */
+/*   Updated: 2023/11/17 21:14:52 by junmlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ int	print_ptr(va_list *ap)
 	error = 0;
 	len = 0;
 	n = va_arg(*ap, void *);
-	len += write(1, "0x", 2);
+	if (write(1, "0x", 2) == -1)
+		return (-1);
+	else
+		len += 2;
 	put_ptr((size_t)n, &len, &error);
 	if (error == 1)
 		return (-1);
