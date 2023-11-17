@@ -6,13 +6,13 @@
 /*   By: junmlee <junmlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 21:48:36 by junmlee           #+#    #+#             */
-/*   Updated: 2023/11/17 17:24:34 by junmlee          ###   ########.fr       */
+/*   Updated: 2023/11/17 21:04:40 by junmlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	type_check(char type, va_list *ap)
+int	formatting(char type, va_list *ap)
 {
 	if (type == 'c')
 		return (print_char(ap));
@@ -37,10 +37,17 @@ int	type_check(char type, va_list *ap)
 		return (-1);
 }
 
+int	va_end_ret(va_list *ap, int ret)
+{
+	va_end(*ap);
+	return (ret);
+}
+
 int	ft_printf(const char *format, ...)
 {
 	int		len;
 	int		i;
+	int		ret_formatting;
 	va_list	ap;
 
 	if (format == NULL)
@@ -52,16 +59,15 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			len += type_check(format[i + 1], &ap);
+			ret_formatting = formatting(format[i + 1], &ap);
+			if (ret_formatting == -1)
+				return (va_end_ret(&ap, -1));
+			len += ret_formatting;
 			i++;
 		}
 		else
-		{
-			write(1, format + i, 1);
-			len++;
-		}
+			len += write(1, format + i, 1);
 		i++;
 	}
-	va_end(ap);
-	return (len);
+	return (va_end_ret(&ap, len));
 }
