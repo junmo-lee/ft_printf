@@ -6,7 +6,7 @@
 /*   By: junmlee <junmlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:50:34 by junmlee           #+#    #+#             */
-/*   Updated: 2023/11/17 22:39:29 by junmlee          ###   ########.fr       */
+/*   Updated: 2023/11/19 14:49:52 by junmlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,24 @@ int	print_dec(va_list *ap)
 int	print_unsigned(va_list *ap)
 {
 	unsigned int	n;
-	ssize_t			ret_write;
+	int				len;
+	const char		*base = "0123456789";
 	char			*num_array;
 
+	len = 0;
 	n = va_arg(*ap, unsigned int);
-	num_array = ft_uitoa(n);
+	len = check_len(n, 10);
+	num_array = ft_utoa(n, len, 10, base);
 	if (num_array == NULL)
 		return (-1);
-	ret_write = write(1, num_array, ft_strlen(num_array));
-	free(num_array);
-	num_array = NULL;
-	if (ret_write == -1)
+	else if (write(1, num_array, len) == -1)
+	{
+		free(num_array);
 		return (-1);
+	}
 	else
-		return (ret_write);
+	{
+		free(num_array);
+		return (len);
+	}
 }
