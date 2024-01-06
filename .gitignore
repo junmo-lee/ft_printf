@@ -1,0 +1,9 @@
+*.out
+*test*
+*.vscode/*
+LAST_ALL
+LAST_BONUS
+*.d
+*.o
+*.a
+*main*
