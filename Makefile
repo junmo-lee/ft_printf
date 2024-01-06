@@ -12,7 +12,6 @@ ARFLAGS	= -rcs
 LIBFT = ./libft/libft.a
 LIBFT_DIR = libft/
 
-INC		= ft_printf.h
 
 SRCS	= ft_printf.c print_chars.c print_dec.c print_hex.c \
 		print_pointer.c utoa.c 
@@ -46,7 +45,7 @@ $(NAME) :
 	make all
 
 %.o : %.c
-	$(CC) $(CFLAGS) $(CDEF) -c $< -o $@ -I $(INC)
+	$(CC) $(CFLAGS) $(CDEF) -c $< -o $@ -I.
 
 .PHONY : all bonus clean fclean re
 
